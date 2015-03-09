@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-	{% for object in object_list %}
+	{% for object in entries %}
 		{% include "partial/article_detail.html" with article=object %}
 	{% endfor %}
 
-	
+    <div class="pagination">
+    	{% if entries.has_previous %}
+            <a href="{% url "page" page=entries.previous_page_number %}">&lsaquo; </a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ entries.number }} / {{ entries.paginator.num_pages }}.
+        </span>
+
+        {% if entries.has_next %}
+            <a href="{% url "page" page=entries.next_page_number %}">&rsaquo;</a>
+        {% endif %}
+    </div>
+
 {% endblock %}
+
