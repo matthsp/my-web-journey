@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for object in object_list %}
+		{% include "partial/article_detail.html" with article=object %}
+	{% endfor %}
+
+	
+{% endblock %}

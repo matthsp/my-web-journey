@@ -1,0 +1,9 @@
+{% load django_markdown %}
+
+<div class="article">
+	<h1 class="title"><a href="{% url "article_detail" slug=article.slug %}">{{ article.title }}</a></h1>
+	<p class="meta">{{ article.created }} | Tags : {{ article.tags.all|join:", " }} </p>
+	<div class="content">
+		{{ article.body|markdown }}
+	</div>
+</div>
