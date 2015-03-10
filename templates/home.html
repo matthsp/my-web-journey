@@ -1,36 +1,98 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% load django_markdown %}
 
 {% block title %} - Blog {% endblock %}
 
 {% block content %}
-	{% for object in entries %}
-		{% include "partial/article_detail.html" with article=object %}
-	{% endfor %}
-    
-    {% if entries.has_other_pages %}
-        <ul class="pagination">
-            {% for page_number in page_range %}
-                {% if forloop.first %}
-                    {% if page_number > 2 %}
-                        <li><a href="{% url "page" page=1 %}"> << </a></li><li>...</li>
-                    {% elif page_number > 1 %}
-                        <li><a href="{% url "page" page=1 %}"> 1 </a></li>
-                    {% endif %}
-                {% endif %}
-                {% if page_number == page %}
-                    <li class="current"> {{ page }} </li>
-                {% else %}
-                    <li><a href="{% url "page" page=page_number %}"> {{ page_number }} </a></li>
-                {% endif %}
-                {% if forloop.last %}
-                    {% if page_number|add:1 < entries.paginator.num_pages %}
-                        <li>...</li><li><a href="{% url "page" page=entries.paginator.num_pages %}"> >> </a></li>
-                    {% elif page_number < entries.paginator.num_pages %}
-                        <li><a href="{% url "page" page=entries.paginator.num_pages %}"> {{ entries.paginator.num_pages }} </a></li>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="col-md-8 content-main">
+        {% comment %}
+        <div class="content-grid">
+             <div class="content-grid-head">
+                <h3>POST OF THE DAY</h3>
+                <h4>July 24, 2014,Posted by: <a href="#">Admin</a></h4>
+                <div class="clearfix"></div>
+             </div>
+             <div class="content-grid-info">
+                <h3><a href="single.html">Web is like desert, vast and full of mysteries!</a></h3>
+                <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+                <img src="images/c1.jpg" alt=""/>
+                <a class="bttn" href="single.html">MORE</a>
+            </div>
+        </div>
+        {% endcomment %}
+         
+
+        {% for post in entries %}
+            <div class="content-grid-sec">
+                <div class="content-sec-info">
+                    <h3><a href="{% url "article_detail" slug=post.slug %}">{{ post.title  }}</a></h3>
+                    <h4>{{ post.created }}</h4>
+                    <p>{{ post.body|markdown }}</p>
+                    <img src="{% static "images/c2.jpg" %}" alt=""/>
+                    <a class="bttn" href="{% url "article_detail" slug=post.slug %}">MORE</a>
+                </div>
+            </div>
+        {% empty %}
+            {% if search %}
+                <div class="content-grid-sec">
+                    <div class="content-sec-info">
+                        <p><< {{ search }} >> was not found, please try something else</p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        {% if entries.has_other_pages %}
+            <div class="pages">
+                <ul>
+                    {% for page_number in page_range %}
+                        {% if page_number == 2 and forloop.first %}
+                            <li><a href="{% url "page" page=1 %}"> 1 </a></li>
+                        {% endif %}
+
+                        {% if page_number == page %}
+                            <li class="active"><a href="#">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="{% url "page" page=page_number %}">{{ page_number }}</a></li>
+                        {% endif %}
+                        {% if forloop.last and page_number < entries.paginator.num_pages %}
+                            <li><a href="{% url "page" page=entries.paginator.num_pages %}"> {{ entries.paginator.num_pages }} </a></li>
+                        {% endif %}
+
+                        {% if forloop.first and page_number > 2 %}
+                            <li><a href="{% url "page" page=1 %}">First page</a></li><li>...</li>
+                        {% endif %}
+                        {% if forloop.last and page_number|add:1 < entries.paginator.num_pages %}
+                            <li><a href="{% url "page" page=entries.paginator.num_pages %}">Last page</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>               
+        {% endif %}
+    </div>
+    <div class="col-md-4 content-main-right">
+        <div class="search">
+            <h3>SEARCH HERE</h3>
+            <form class="form-inline">
+                <input type="text" name="search" class="pull-left" value="" onfocus="this.value=''" onblur="this.value=''">
+                <input type="submit" class="pull-left" value="">
+            </form>
+            <div class="clearfix"></div>
+        </div>
+        <div class="categories">
+             <h3>FAMOUS TAGS</h3>
+             <li class="active"><a href="#">WEB TRENDS</a></li>
+             <li><a href="#">TEMPLATES</a></li>
+             <li><a href="#">HTML / CSS TRICKS</a></li>
+        </div>
+        <div class="archives">
+             <h3>ARCHIVES</h3>
+             <li class="active"><a href="#">February 2015</a></li>
+             <li><a href="#">January 2015</a></li>
+             <li><a href="#">December 2014</a></li>
+        </div>
+    </div>
+    <div class="clearfix"></div>
 {% endblock %}
 

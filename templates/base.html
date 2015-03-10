@@ -1,20 +1,116 @@
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
+<!--
+	Author: W3layouts
+	Author URL: http://w3layouts.com
+	License: Creative Commons Attribution 3.0 Unported
+	License URL: http://creativecommons.org/licenses/by/3.0/
+	This template was adapted to fit my blog
+-->
+<!DOCTYPE HTML>
+<html>
 	<head>
-		<meta charset="UTF-8">
-		<title>A Web Journey {% block title %}{% endblock %}</title>
-		<link rel="stylesheet" href="{% static "css/style.css" %}">
+		<title>A Web Journey - {% block title %}Home{% endblock %} - By Matthieu Pouille</title>
+		<link href="{% static "css/bootstrap.css" %}" rel='stylesheet' type='text/css' />
+		<link href="{% static "css/fonts.css" %}" rel='stylesheet' type='text/css' />
+		<link href="{% static "css/style.css" %}" rel='stylesheet' type='text/css' />
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="A Web Journey, Matthieu Pouille, online resume, blog" />
+
+		<!--script-->
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<script src="{% static "js/jquery.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/move-top.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/easing.js" %}"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$().UItoTop({ easingType: 'easeOutQuart' });
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+		</script>
+		<!--/script-->
 	</head>
 	<body>
-		<header>
-			<nav>
-				<li><a href="" title="" >Home</a></li>
-				<li><a href="" title="" >Blog</a></li>
-				<li><a href="" title="" >About Me</a></li>
-				<li><a href="" title="" >Contact</a></li>
-			</nav>
-		</header>
-		{% block content %}{% endblock %}
+		<!---strat-banner---->
+		<div class="banner">				
+			 <div class="header">  
+				  <div class="container">
+					  <div class="logo">
+							<a href="{% url "home" %}"> <img src="{% static "images/logo.png" %}" title="soup" /></a>
+					 </div>
+					 <!---start-top-nav---->
+					 <div class="top-menu">
+						  <span class="menu"> </span> 
+						   <ul>
+								<li class="active"><a href="{% url "home" %}">HOME</a></li>						
+								<li><a href="contact.html">WHO AM I</a></li>	
+								<li><a href="contact.html">CONTACT ME</a></li>	
+								<div class="clearfix"> </div>
+						 </ul>
+					 </div>
+					 <div class="clearfix"></div>
+						<script>
+							$("span.menu").click(function(){
+							$(".top-menu ul").slideToggle("slow" , function(){
+							});
+							});
+						</script>
+						<!---//End-top-nav---->					
+				 </div>
+			 </div>
+			 <div class="container">
+				 <div class="banner-head">
+					 <h1>A Web Journey</h1>
+					 <h2>An online blog about cool Web Development stuff</h2>
+				 </div>
+			 </div>
+		</div>
+		<!---//End-banner---->
+		<div class="content">
+			 <div class="container">
+				 <div class="content-grids">
+					 {% block content %}{% endblock %}
+				 </div>
+			 </div>
+		</div>
+		<!--fotter-->
+		<div class="fotter">
+			 <div class="container">
+				 <div class="col-md-4 fotter-info">
+					 <h3>WHO AM I ?</h3>
+					 <p>Matthieu Pouille - 21 years old - and freekin' addicted to Web technologies.</p>
+					 <p>Find more about me in the <a href="#">- about me -</a> section !   </p>
+				 </div>
+				 <div class="col-md-4 fotter-list">
+					 <h3>FOLLOW ME </h3>
+					 <ul>
+						 <li><a href="#">Linked-in</a></li>
+						 <li><a href="#">Google+</a></li>
+						 <li><a href="#">Github</a></li>
+					 </ul>
+				 </div>
+				 <div class="col-md-3 fotter-media">
+					<h3>WEBSITE TREE</h3>
+					<br>
+					<dl>
+						<dd><a href="#">BLOG</a></dd>
+						<dd><a href="#">WHO AM I?</a></dd>
+						<dd><a href="#">CONTACT ME!</a></dd>
+					</dl>
+				 </div>
+				 <div class="clearfix"></div>
+			 </div>
+		</div>
+		<!---fotter/-->
+		<div class="copywrite">
+			<div class="container">
+				<p>a website by Matthieu Pouille - 2015 | Template based on <a href="http://w3layouts.com/">W3layouts</a></p>
+			</div>
+		</div>
+		<a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 	</body>
 </html>
