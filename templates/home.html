@@ -1,23 +1,36 @@
 {% extends "base.html" %}
 
+{% block title %} - Blog {% endblock %}
+
 {% block content %}
 	{% for object in entries %}
 		{% include "partial/article_detail.html" with article=object %}
 	{% endfor %}
-
-    <div class="pagination">
-    	{% if entries.has_previous %}
-            <a href="{% url "page" page=entries.previous_page_number %}">&lsaquo; </a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ entries.number }} / {{ entries.paginator.num_pages }}.
-        </span>
-
-        {% if entries.has_next %}
-            <a href="{% url "page" page=entries.next_page_number %}">&rsaquo;</a>
-        {% endif %}
-    </div>
-
+    
+    {% if entries.has_other_pages %}
+        <ul class="pagination">
+            {% for page_number in page_range %}
+                {% if forloop.first %}
+                    {% if page_number > 2 %}
+                        <li><a href="{% url "page" page=1 %}"> << </a></li><li>...</li>
+                    {% elif page_number > 1 %}
+                        <li><a href="{% url "page" page=1 %}"> 1 </a></li>
+                    {% endif %}
+                {% endif %}
+                {% if page_number == page %}
+                    <li class="current"> {{ page }} </li>
+                {% else %}
+                    <li><a href="{% url "page" page=page_number %}"> {{ page_number }} </a></li>
+                {% endif %}
+                {% if forloop.last %}
+                    {% if page_number|add:1 < entries.paginator.num_pages %}
+                        <li>...</li><li><a href="{% url "page" page=entries.paginator.num_pages %}"> >> </a></li>
+                    {% elif page_number < entries.paginator.num_pages %}
+                        <li><a href="{% url "page" page=entries.paginator.num_pages %}"> {{ entries.paginator.num_pages }} </a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
 
