@@ -3,17 +3,18 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>A Web Journey</title>
+		<title>A Web Journey {% block title %}{% endblock %}</title>
 		<link rel="stylesheet" href="{% static "css/style.css" %}">
 	</head>
 	<body>
-		<nav>
-			<li>Home</li>
-			<li>Blog</li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</nav>
+		<header>
+			<nav>
+				<li><a href="" title="" >Home</a></li>
+				<li><a href="" title="" >Blog</a></li>
+				<li><a href="" title="" >About Me</a></li>
+				<li><a href="" title="" >Contact</a></li>
+			</nav>
+		</header>
 		{% block content %}{% endblock %}
 	</body>
 </html>

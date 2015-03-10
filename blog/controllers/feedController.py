@@ -5,7 +5,7 @@ from blog.models.entry import Entry
 class IndexAction(Feed):
 	title = "A Web Journey - By Matthieu Pouille [pouillematthieu@gmail.com]"
 	link = "/feed/"
-	description = "5 latests post of my Web journey"
+	description = "5 latests posts of my Web journey"
 
 	def items(self):
 		# return the 5 latest posts
