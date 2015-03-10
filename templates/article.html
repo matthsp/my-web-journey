@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %} - {{ object.title }} {% endblock %}
+
 {% block content %}
 	{% include "partial/article_detail.html" with article=object %}
+
+	<a href="{% url "home" %}"> Retour </a>
 {% endblock %}
