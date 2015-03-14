@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load django_markdown %}
 
-{% block title %} - Blog {% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block content %}
     <div class="col-md-8 content-main">
@@ -56,12 +56,9 @@
                         {% else %}
                             <li><a href="{% url "page" page=page_number %}">{{ page_number }}</a></li>
                         {% endif %}
-                        {% if forloop.last and page_number < entries.paginator.num_pages %}
-                            <li><a href="{% url "page" page=entries.paginator.num_pages %}"> {{ entries.paginator.num_pages }} </a></li>
-                        {% endif %}
 
                         {% if forloop.first and page_number > 2 %}
-                            <li><a href="{% url "page" page=1 %}">First page</a></li><li>...</li>
+                            <li><a href="{% url "page" page=1 %}">First page</a></li>
                         {% endif %}
                         {% if forloop.last and page_number|add:1 < entries.paginator.num_pages %}
                             <li><a href="{% url "page" page=entries.paginator.num_pages %}">Last page</a></li>
