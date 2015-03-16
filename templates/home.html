@@ -6,30 +6,12 @@
 
 {% block content %}
     <div class="col-md-8 content-main">
-        {% comment %}
-        <div class="content-grid">
-             <div class="content-grid-head">
-                <h3>POST OF THE DAY</h3>
-                <h4>July 24, 2014,Posted by: <a href="#">Admin</a></h4>
-                <div class="clearfix"></div>
-             </div>
-             <div class="content-grid-info">
-                <h3><a href="single.html">Web is like desert, vast and full of mysteries!</a></h3>
-                <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
-                <img src="images/c1.jpg" alt=""/>
-                <a class="bttn" href="single.html">MORE</a>
-            </div>
-        </div>
-        {% endcomment %}
-         
-
         {% for post in entries %}
             <div class="content-grid-sec">
                 <div class="content-sec-info">
                     <h3><a href="{% url "article_detail" slug=post.slug %}">{{ post.title  }}</a></h3>
                     <h4>{{ post.created }}</h4>
                     <p>{{ post.body|markdown }}</p>
-                    <img src="{% static "images/c2.jpg" %}" alt=""/>
                     <a class="bttn" href="{% url "article_detail" slug=post.slug %}">MORE</a>
                 </div>
             </div>
@@ -47,23 +29,25 @@
             <div class="pages">
                 <ul>
                     {% for page_number in page_range %}
-                        {% if page_number == 2 and forloop.first %}
-                            <li><a href="{% url "page" page=1 %}"> 1 </a></li>
+                        {% if page_number > 1 and forloop.first %}
+                            <li><a href="#">...</a></li>
                         {% endif %}
-
                         {% if page_number == page %}
                             <li class="active"><a href="#">{{ page }}</a></li>
                         {% else %}
                             <li><a href="{% url "page" page=page_number %}">{{ page_number }}</a></li>
                         {% endif %}
-
-                        {% if forloop.first and page_number > 2 %}
-                            <li><a href="{% url "page" page=1 %}">First page</a></li>
-                        {% endif %}
-                        {% if forloop.last and page_number|add:1 < entries.paginator.num_pages %}
-                            <li><a href="{% url "page" page=entries.paginator.num_pages %}">Last page</a></li>
+                        {% if page_number|add:1 < entries.paginator.num_pages and forloop.last %}
+                            <li><a href="#">...</a></li>
                         {% endif %}
                     {% endfor %}
+
+                    {% if page_range.0 > 1 %}
+                            <li><a href="{% url "page" page=1 %}">First page</a></li>
+                    {% endif %}
+                    {% if page_range|last|add:1 < entries.paginator.num_pages %}
+                        <li><a href="{% url "page" page=entries.paginator.num_pages %}">Last page</a></li>
+                    {% endif %}
                 </ul>
             </div>               
         {% endif %}
