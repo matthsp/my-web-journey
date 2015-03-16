@@ -4,15 +4,21 @@
 {% block title %} - {{ object.title }} {% endblock %}
 
 {% block content %}
-	<div class="content-grid">
-		 <div class="content-grid-head">
-			 <h3>{{ object.title }}</h3>
-			 <h4>{{ object.created }}</h4>
-			 <div class="clearfix"></div>
-		 </div>
-		 <div class="content-grid-single">
-			 {{ object.body|markdown }}
+	<div class="col-md-8 content-main">
+	    <div class="content-grid">
+	        <div class="content-grid-head">
+				<h3>{{ object.title }}</h3>
+				<h4>{{ object.created }}</h4>
+				<div class="clearfix"></div>
+			</div>
+			<div class="content-grid-single">
+				{{ object.body|markdown }}
+			</div>
+			<div class="content-grid-single">
+				<a href="{% if back %}{{ back }}{% else %}{% url 'home' %}{% endif %}"> Retour </a>
+			</div>
 		</div>
 	</div>
-	<a href="{% if back %}{{ back }}{% else %}{% url 'home' %}{% endif %}"> Retour </a>
+	{% include 'partial/left-bar.html' %}
+	<div class="clearfix"></div>
 {% endblock %}

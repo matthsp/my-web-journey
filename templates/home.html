@@ -52,28 +52,7 @@
             </div>               
         {% endif %}
     </div>
-    <div class="col-md-4 content-main-right">
-        <div class="search">
-            <h3>SEARCH HERE</h3>
-            <form action="{% url 'page' page=1 %}" class="form-inline">
-                <input type="text" name="search" class="pull-left" value="{% if search %}{{ search }}{% endif %}" onfocus="this.value=''">
-                <input type="submit" class="pull-left" value="">
-            </form>
-            <div class="clearfix"></div>
-        </div>
-        <div class="categories">
-             <h3>FAMOUS TAGS</h3>
-             <li class="active"><a href="#">WEB TRENDS</a></li>
-             <li><a href="#">TEMPLATES</a></li>
-             <li><a href="#">HTML / CSS TRICKS</a></li>
-        </div>
-        <div class="archives">
-             <h3>ARCHIVES</h3>
-             <li class="active"><a href="#">February 2015</a></li>
-             <li><a href="#">January 2015</a></li>
-             <li><a href="#">December 2014</a></li>
-        </div>
-    </div>
+    {% include 'partial/left-bar.html' %}
     <div class="clearfix"></div>
 {% endblock %}
 
