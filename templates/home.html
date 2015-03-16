@@ -35,7 +35,7 @@
                         {% if page_number == page %}
                             <li class="active"><a href="#">{{ page }}</a></li>
                         {% else %}
-                            <li><a href="{% url "page" page=page_number %}">{{ page_number }}</a></li>
+                            <li><a href="{% url "page" page=page_number %}{% if search %}?search={{ search|urlencode }}{% endif %}">{{ page_number }}</a></li>
                         {% endif %}
                         {% if page_number|add:1 < entries.paginator.num_pages and forloop.last %}
                             <li><a href="#">...</a></li>
@@ -43,10 +43,10 @@
                     {% endfor %}
 
                     {% if page_range.0 > 1 %}
-                            <li><a href="{% url "page" page=1 %}">First page</a></li>
+                            <li><a href="{% url "page" page=1 %}{% if search %}?search={{ search|urlencode }}{% endif %}">First page</a></li>
                     {% endif %}
                     {% if page_range|last|add:1 < entries.paginator.num_pages %}
-                        <li><a href="{% url "page" page=entries.paginator.num_pages %}">Last page</a></li>
+                        <li><a href="{% url "page" page=entries.paginator.num_pages %}{% if search %}?search={{ search|urlencode }}{% endif %}">Last page</a></li>
                     {% endif %}
                 </ul>
             </div>               
@@ -56,7 +56,7 @@
         <div class="search">
             <h3>SEARCH HERE</h3>
             <form class="form-inline">
-                <input type="text" name="search" class="pull-left" value="" onfocus="this.value=''" onblur="this.value=''">
+                <input type="text" name="search" class="pull-left" value="{% if search %}{{ search }}{% endif %}" onfocus="this.value=''" onblur="this.value=''">
                 <input type="submit" class="pull-left" value="">
             </form>
             <div class="clearfix"></div>
