@@ -9,7 +9,7 @@
         {% for post in entries %}
             <div class="content-grid-sec">
                 <div class="content-sec-info">
-                    <h3><a href="{% url "article_detail" slug=post.slug %}">{{ post.title  }}</a></h3>
+                    <h3><a href="{% url "article_detail" slug=post.slug %}?back={{ request.path }}{% if search %}?search={{ search|urlencode }}{% endif %}">{{ post.title  }}</a></h3>
                     <h4>{{ post.created }}</h4>
                     <p>{{ post.body|markdown }}</p>
                     <a class="bttn" href="{% url "article_detail" slug=post.slug %}">MORE</a>
@@ -55,8 +55,8 @@
     <div class="col-md-4 content-main-right">
         <div class="search">
             <h3>SEARCH HERE</h3>
-            <form class="form-inline">
-                <input type="text" name="search" class="pull-left" value="{% if search %}{{ search }}{% endif %}" onfocus="this.value=''" onblur="this.value=''">
+            <form action="{% url 'page' page=1 %}" class="form-inline">
+                <input type="text" name="search" class="pull-left" value="{% if search %}{{ search }}{% endif %}" onfocus="this.value=''">
                 <input type="submit" class="pull-left" value="">
             </form>
             <div class="clearfix"></div>

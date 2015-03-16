@@ -14,5 +14,5 @@
 			 {{ object.body|markdown }}
 		</div>
 	</div>
-	<a href="{% url "home" %}"> Retour </a>
+	<a href="{% if back %}{{ back }}{% else %}{% url 'home' %}{% endif %}"> Retour </a>
 {% endblock %}

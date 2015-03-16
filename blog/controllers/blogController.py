@@ -75,9 +75,16 @@ class IndexAction(generic.View):
 			# Truncate the page_range
 			page_range = page_range[first_index:last_index]
 
-		return render(request, self.template_name, {'entries': self.entries, 'page_range': page_range, 'page': self.page, 'search' : search, } )
+		return render(request, self.template_name, {'request': request, 'entries': self.entries, 'page_range': page_range, 'page': self.page, 'search' : search, } )
 
 
 class DetailAction(generic.DetailView):
 	model = Entry
 	template_name = "article.html"
+	back = None
+
+	def get(self, request, slug):
+		entry = Entry.objects.get(slug=slug)
+		back = request.GET.get("back")
+
+		return render(request, self.template_name, {'back': back, 'object': entry})
