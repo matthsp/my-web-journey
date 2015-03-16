@@ -55,9 +55,7 @@
 					 <div class="clearfix"></div>
 						<script>
 							$("span.menu").click(function(){
-							$(".top-menu ul").slideToggle("slow" , function(){
-							});
-							});
+							$(".top-menu ul").slideToggle("slow" , function(){ });});
 						</script>
 						<!---//End-top-nav---->					
 				 </div>
@@ -86,18 +84,17 @@
 					 <p>Find more about me in the <a href="#">- about me -</a> section !   </p>
 				 </div>
 				 <div class="col-md-4 fotter-list">
-					 <h3>FOLLOW ME </h3>
+					 <h3>FOLLOW ME</h3>
 					 <ul>
-						 <li><a href="#">Linked-in</a></li>
-						 <li><a href="#">Google+</a></li>
-						 <li><a href="#">Github</a></li>
+						 <li><a href="https://fr.linkedin.com/in/matthieupouille/en">Linked-in</a></li>
+						 <li><a href="https://github.com/matthsp">Github</a></li>
 					 </ul>
 				 </div>
 				 <div class="col-md-3 fotter-media">
 					<h3>WEBSITE TREE</h3>
 					<br>
 					<dl>
-						<dd><a href="#">BLOG</a></dd>
+						<dd><a href="{% url 'home' %}">BLOG</a></dd>
 						<dd><a href="#">WHO AM I?</a></dd>
 						<dd><a href="#">CONTACT ME!</a></dd>
 					</dl>
